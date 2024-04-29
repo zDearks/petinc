@@ -20,6 +20,7 @@
         label {
             display: block;
             margin-bottom: 5px;
+            font-weight: bold;
         }
         input[type="text"], input[type="number"], select {
             width: 100%;
@@ -40,6 +41,12 @@
         input[type="submit"]:hover {
             background-color: #0056b3;
         }
+        #spenderContainer {
+            margin-bottom: 20px;
+        }
+        .spender {
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 <body>
@@ -54,11 +61,41 @@
         <label for="payerNickname">Payer nickname:</label><br>
         <input type="text" id="payerNickname" name="payerNickname"><br>
         <label for="spenders">Add spenders:</label><br>
-        <input type="text" id="spender1" name="spender1"><br>
-        <!-- Добавьте больше полей для участников по необходимости -->
+        <div id="spenderContainer">
+            <div class="spender">
+                <input type="text" class="spenderName" name="spender1"><br>
+            </div>
+        </div>
+        <button type="button" id="addSpender">Add spender</button>
         <input type="submit" value="Split">
     </form>
+
+    <script>
+        document.getElementById('addSpender').addEventListener('click', function() {
+            var spenderContainer = document.getElementById('spenderContainer');
+            var newSpender = document.createElement('div');
+            newSpender.className = 'spender';
+            newSpender.innerHTML = '<input type="text" class="spenderName" name="spender' + (spenderContainer.children.length + 1) + '"><br>';
+            spenderContainer.appendChild(newSpender);
+        });
+
+        document.getElementById('paymentForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            var amountPaid = document.getElementById('amountPaid').value;
+            var currencyType = document.getElementById('currencyType').value;
+            var spenderNames = Array.from(document.getElementsByClassName('spenderName')).map(function(input) { return input.value; });
+            if (currencyType === 'rub') {
+                var exchangeRate = 0.011; // Замените это на актуальный курс обмена
+                var amountInUsd = amountPaid * exchangeRate;
+                console.log('Amount in USD: ' + amountInUsd);
+            }
+            var splitAmount = amountInUsd / spenderNames.length;
+            console.log('Each spender should pay: ' + splitAmount);
+        });
+    </script>
 </body>
 </html>
+
+
 
 
