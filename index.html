@@ -2,12 +2,13 @@
 <html>
 <head>
     <title>Payment Splitter</title>
-    <style>
+    <style id="themeStyle">
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
             background-color: #f0f0f0;
+            color: #000;
         }
         form {
             max-width: 500px;
@@ -47,9 +48,21 @@
         .spender {
             margin-bottom: 10px;
         }
+        #darkMode {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            color: #fff;
+            background-color: #000;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
+    <button id="darkMode">Dark Mode</button>
     <form id="paymentForm">
         <label for="amountPaid">Amount paid:</label><br>
         <input type="number" id="amountPaid" name="amountPaid"><br>
@@ -92,9 +105,21 @@
             var splitAmount = amountInUsd / spenderNames.length;
             console.log('Each spender should pay: ' + splitAmount);
         });
+
+        document.getElementById('darkMode').addEventListener('click', function() {
+            var themeStyle = document.getElementById('themeStyle');
+            if (themeStyle.innerHTML.indexOf('#f0f0f0') !== -1) {
+                themeStyle.innerHTML = themeStyle.innerHTML.replace('#f0f0f0', '#333').replace('#000', '#fff').replace('#fff', '#333');
+                this.innerHTML = 'Light Mode';
+            } else {
+                themeStyle.innerHTML = themeStyle.innerHTML.replace('#333', '#f0f0f0').replace('#fff', '#000').replace('#333', '#fff');
+                this.innerHTML = 'Dark Mode';
+            }
+        });
     </script>
 </body>
 </html>
+
 
 
 
