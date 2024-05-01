@@ -80,6 +80,7 @@
             </div>
         </div>
         <button type="button" id="addSpender">Add spender</button>
+        <button type="button" id="deleteSpender">Удалить spender</button>
         <input type="submit" value="Split">
     </form>
 
@@ -90,6 +91,13 @@
             newSpender.className = 'spender';
             newSpender.innerHTML = '<input type="text" class="spenderName" name="spender' + (spenderContainer.children.length + 1) + '"><br>';
             spenderContainer.appendChild(newSpender);
+        });
+
+        document.getElementById('deleteSpender').addEventListener('click', function() {
+            var spenderContainer = document.getElementById('spenderContainer');
+            if (spenderContainer.children.length > 0) {
+                spenderContainer.removeChild(spenderContainer.lastChild);
+            }
         });
 
         document.getElementById('paymentForm').addEventListener('submit', function(event) {
