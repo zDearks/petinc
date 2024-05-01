@@ -77,10 +77,11 @@
         <div id="spenderContainer">
             <div class="spender">
                 <input type="text" class="spenderName" name="spender1"><br>
+                <input type="number" class="spenderAmount" name="spenderAmount1"><br>
             </div>
         </div>
         <button type="button" id="addSpender">Add spender</button>
-        <button type="button" id="deleteSpender">Удалить spender</button>
+        <button type="button" id="deleteSpender">Delete spender</button>
         <input type="submit" value="Split">
     </form>
 
@@ -89,7 +90,8 @@
             var spenderContainer = document.getElementById('spenderContainer');
             var newSpender = document.createElement('div');
             newSpender.className = 'spender';
-            newSpender.innerHTML = '<input type="text" class="spenderName" name="spender' + (spenderContainer.children.length + 1) + '"><br>';
+            newSpender.innerHTML = '<input type="text" class="spenderName" name="spender' + (spenderContainer.children.length + 1) + '"><br>' +
+                                   '<input type="number" class="spenderAmount" name="spenderAmount' + (spenderContainer.children.length + 1) + '"><br>';
             spenderContainer.appendChild(newSpender);
         });
 
@@ -105,6 +107,7 @@
             var amountPaid = document.getElementById('amountPaid').value;
             var currencyType = document.getElementById('currencyType').value;
             var spenderNames = Array.from(document.getElementsByClassName('spenderName')).map(function(input) { return input.value; });
+            var spenderAmounts = Array.from(document.getElementsByClassName('spenderAmount')).map(function(input) { return input.value; });
             if (currencyType === 'rub') {
                 var exchangeRate = 0.011; // Замените это на актуальный курс обмена
                 var amountInUsd = amountPaid * exchangeRate;
